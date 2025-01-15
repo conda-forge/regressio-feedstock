@@ -6,22 +6,23 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/regressio-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/regressio-{{ version }}.tar.gz
   sha256: eea3c778dc7f1db582a19ee1f08ce95247d73292d442104c71ceab8fd334801c
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.8
+    - python {{ python_min }}
+    - setuptools
   run:
     - numpy
     - matplotlib-base
-    - python >=3.8
+    - python >={{ python_min }}
 
 test:
   source_files:
@@ -35,6 +36,7 @@ test:
   requires:
     - pip
     - pytest
+    - python {{ python_min }}
 
 about:
   home: https://github.com/brendanartley/regressio
